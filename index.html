@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مسيرتنا</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="theme-color" content="#FBF8F3">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ivory:#FBF8F3;
+    --ivory-deep:#F3EEE4;
+    --ink:#2B2620;
+    --ink-soft:#6b6155;
+    --blue:#2E6FA3;
+    --blue-deep:#1f4f78;
+    --blue-soft:#DCEBF5;
+    --blue-soft2:#EAF3F9;
+    --pink:#D46A93;
+    --pink-deep:#a8446c;
+    --pink-soft:#FBE4ED;
+    --pink-soft2:#FDF0F5;
+    --gold:#C9A15A;
+    --gold-soft:#F1E4C8;
+    --shadow: 0 8px 24px rgba(43,38,32,0.07);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--ivory);
+    color:var(--ink);
+    font-family:'Tajawal',sans-serif;
+    min-height:100vh;
+    -webkit-font-smoothing:antialiased;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
+  }
+
+  /* ---------- header ---------- */
+  .hero{
+    text-align:center;
+    padding:38px 20px 28px;
+    position:relative;
+  }
+  .hero h1{
+    font-family:'Amiri',serif;
+    font-weight:700;
+    font-size:clamp(28px,5vw,42px);
+    margin:0;
+    color:var(--ink);
+    letter-spacing:0.5px;
+  }
+  .hero .sub{
+    margin-top:8px;
+    color:var(--ink-soft);
+    font-size:15px;
+    font-weight:400;
+  }
+  .together-ring{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:14px;
+    margin-top:22px;
+  }
+  .together-track{
+    width:min(320px,72vw);
+    height:10px;
+    border-radius:999px;
+    background:var(--ivory-deep);
+    overflow:hidden;
+    position:relative;
+  }
+  .together-fill{
+    height:100%;
+    border-radius:999px;
+    background:linear-gradient(90deg,var(--blue),var(--gold),var(--pink));
+    transition:width 0.6s ease;
+  }
+  .together-pct{
+    font-size:14px;
+    color:var(--ink-soft);
+    min-width:42px;
+  }
+
+  /* ---------- layout ---------- */
+  .board{
+    display:flex;
+    align-items:flex-start;
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 20px 80px;
+    gap:0;
+  }
+  .side{
+    flex:1;
+    min-width:0;
+    padding:22px;
+    border-radius:22px;
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+  }
+  .side.blue{ background:linear-gradient(180deg,var(--blue-soft2),var(--ivory) 60%); }
+  .side.pink{ background:linear-gradient(180deg,var(--pink-soft2),var(--ivory) 60%); }
+
+  .divider{
+    width:64px;
+    flex-shrink:0;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding-top:60px;
+    gap:18px;
+  }
+  .divider .line{
+    width:2px;
+    flex:1;
+    background:linear-gradient(180deg,var(--blue),var(--gold),var(--pink));
+    border-radius:2px;
+    min-height:120px;
+  }
+  .divider .heart{
+    color:var(--gold);
+    font-size:20px;
+  }
+
+  .person-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+  }
+  .person-name{
+    font-family:'Amiri',serif;
+    font-size:24px;
+    font-weight:700;
+  }
+  .side.blue .person-name{ color:var(--blue-deep); }
+  .side.pink .person-name{ color:var(--pink-deep); }
+  .person-stat{
+    font-size:13px;
+    color:var(--ink-soft);
+  }
+
+  /* ---------- course card ---------- */
+  .course{
+    background:#fff;
+    border-radius:18px;
+    padding:16px 16px 14px;
+    box-shadow:var(--shadow);
+    border:1px solid rgba(0,0,0,0.03);
+  }
+  .course-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    cursor:pointer;
+  }
+  .course-title{
+    font-size:16.5px;
+    font-weight:700;
+  }
+  .course-meta{
+    font-size:12.5px;
+    color:var(--ink-soft);
+    margin-top:2px;
+  }
+  .course-progress-wrap{
+    width:100%;
+    height:7px;
+    border-radius:999px;
+    background:var(--ivory-deep);
+    margin-top:10px;
+    overflow:hidden;
+  }
+  .course-progress-fill{
+    height:100%;
+    border-radius:999px;
+    transition:width 0.5s ease;
+  }
+  .side.blue .course-progress-fill{ background:var(--blue); }
+  .side.pink .course-progress-fill{ background:var(--pink); }
+
+  .course-del{
+    background:none;
+    border:none;
+    color:var(--ink-soft);
+    font-size:16px;
+    cursor:pointer;
+    padding:2px 6px;
+    line-height:1;
+    opacity:0.55;
+  }
+  .course-del:hover{opacity:1;}
+
+  .chevron{
+    font-size:12px;
+    color:var(--ink-soft);
+    transition:transform 0.25s ease;
+  }
+  .course.open .chevron{ transform:rotate(180deg); }
+
+  .lessons{
+    display:none;
+    margin-top:12px;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+  }
+  .course.open .lessons{ display:flex; }
+
+  .lesson{
+    border-radius:12px;
+    background:var(--ivory);
+  }
+  .lesson-row{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:9px 10px;
+    cursor:pointer;
+  }
+  .lesson-check{
+    width:20px;
+    height:20px;
+    border-radius:7px;
+    border:2px solid var(--ink-soft);
+    flex-shrink:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:12px;
+    color:#fff;
+    background:transparent;
+    cursor:pointer;
+    transition:all 0.2s ease;
+  }
+  .side.blue .lesson-check.done{ background:var(--blue); border-color:var(--blue); }
+  .side.pink .lesson-check.done{ background:var(--pink); border-color:var(--pink); }
+
+  .lesson-title{
+    flex:1;
+    font-size:14.5px;
+  }
+  .lesson-title.done{
+    text-decoration:line-through;
+    color:var(--ink-soft);
+  }
+  .note-indicator{
+    font-size:12px;
+    color:var(--gold);
+  }
+  .lesson-del{
+    background:none; border:none; color:var(--ink-soft); opacity:0.5; cursor:pointer; font-size:14px;
+  }
+  .lesson-del:hover{opacity:1;}
+
+  .note-panel{
+    display:none;
+    padding:0 10px 12px;
+  }
+  .lesson.note-open .note-panel{ display:block; }
+  .note-panel textarea{
+    width:100%;
+    min-height:60px;
+    border-radius:10px;
+    border:1px solid var(--ivory-deep);
+    padding:10px;
+    font-family:'Tajawal',sans-serif;
+    font-size:13.5px;
+    resize:vertical;
+    background:#fff;
+  }
+  .note-panel .note-actions{
+    display:flex;
+    justify-content:flex-end;
+    gap:8px;
+    margin-top:6px;
+  }
+  .btn{
+    border:none;
+    border-radius:10px;
+    padding:7px 14px;
+    font-family:'Tajawal',sans-serif;
+    font-size:13px;
+    font-weight:500;
+    cursor:pointer;
+  }
+  .side.blue .btn.primary{ background:var(--blue); color:#fff; }
+  .side.pink .btn.primary{ background:var(--pink); color:#fff; }
+  .btn.ghost{ background:transparent; color:var(--ink-soft); }
+
+  /* add lesson row */
+  .add-lesson{
+    display:flex;
+    gap:8px;
+    margin-top:4px;
+  }
+  .add-lesson input{
+    flex:1;
+    border-radius:10px;
+    border:1px solid var(--ivory-deep);
+    padding:8px 10px;
+    font-family:'Tajawal',sans-serif;
+    font-size:13.5px;
+    background:var(--ivory);
+  }
+  .add-lesson input:focus, .add-course input:focus{
+    outline:2px solid var(--gold);
+    outline-offset:1px;
+  }
+
+  .add-course{
+    display:flex;
+    gap:8px;
+  }
+  .add-course input{
+    flex:1;
+    border-radius:14px;
+    border:1px solid rgba(0,0,0,0.06);
+    padding:11px 14px;
+    font-family:'Tajawal',sans-serif;
+    font-size:14.5px;
+    background:#fff;
+    box-shadow:var(--shadow);
+  }
+  .add-course .btn.primary{ border-radius:14px; padding:11px 16px; }
+
+  .empty{
+    text-align:center;
+    color:var(--ink-soft);
+    font-size:13.5px;
+    padding:18px 10px;
+    background:#fff;
+    border-radius:16px;
+    box-shadow:var(--shadow);
+  }
+
+  /* heart burst */
+  .heart-pop{
+    position:fixed;
+    pointer-events:none;
+    font-size:18px;
+    animation:floatUp 900ms ease-out forwards;
+    z-index:50;
+  }
+  @keyframes floatUp{
+    0%{ transform:translateY(0) scale(0.6); opacity:0; }
+    15%{ opacity:1; }
+    100%{ transform:translateY(-60px) scale(1.1); opacity:0; }
+  }
+
+  .sync-note{
+    text-align:center;
+    font-size:12px;
+    color:var(--ink-soft);
+    padding-bottom:20px;
+  }
+
+  @media (max-width: 760px){
+    .board{ flex-direction:column; }
+    .divider{
+      flex-direction:row;
+      width:100%;
+      padding:4px 0;
+    }
+    .divider .line{ height:2px; width:100%; min-height:0; background:linear-gradient(90deg,var(--blue),var(--gold),var(--pink)); }
+    .side{ width:100%; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>مسيرتنا</h1>
+  <div class="sub">دوراتنا الدراسية، معاً خطوة بخطوة</div>
+  <div class="together-ring">
+    <span class="together-pct" id="togetherPct">٠٪</span>
+    <div class="together-track"><div class="together-fill" id="togetherFill" style="width:0%"></div></div>
+  </div>
+</div>
+
+<div class="board">
+  <div class="side blue" id="sideAbdullah">
+    <div class="person-head">
+      <div>
+        <div class="person-name">عبدالله</div>
+        <div class="person-stat" id="statAbdullah">لا توجد دورات بعد</div>
+      </div>
+    </div>
+    <div class="add-course">
+      <input type="text" id="newCourseAbdullah" placeholder="اسم دورة جديدة...">
+      <button class="btn primary" onclick="addCourse('abdullah')">أضف</button>
+    </div>
+    <div id="coursesAbdullah"></div>
+  </div>
+
+  <div class="divider">
+    <div class="line"></div>
+    <div class="heart">♥</div>
+    <div class="line"></div>
+  </div>
+
+  <div class="side pink" id="sideHamees">
+    <div class="person-head">
+      <div>
+        <div class="person-name">هاميس</div>
+        <div class="person-stat" id="statHamees">لا توجد دورات بعد</div>
+      </div>
+    </div>
+    <div class="add-course">
+      <input type="text" id="newCourseHamees" placeholder="اسم دورة جديدة...">
+      <button class="btn primary" onclick="addCourse('hamees')">أضف</button>
+    </div>
+    <div id="coursesHamees"></div>
+  </div>
+</div>
+
+<div class="sync-note" id="syncNote">جاري التحميل...</div>
+
+<script>
+// ==== CONFIG: paste your deployed Worker URL here (see README) ====
+const API_BASE = 'https://masiratuna-api.vamprinkuing7.workers.dev';
+const API_URL = API_BASE + '/api/data';
+
+let state = { abdullah: [], hamees: [], rev: 0 };
+let openNoteEditing = null; // id of note textarea currently focused, to avoid clobbering during sync
+
+function uid(){ return Math.random().toString(36).slice(2,10); }
+
+function defaultState(){
+  return { abdullah: [], hamees: [], rev: 0 };
+}
+
+// UI-only flags (which course/note panels are expanded) never get saved to
+// storage, so when we pull remote data in we need to re-apply them locally
+// or every sync would snap panels shut.
+function extractUIFlags(){
+  const flags = { courseOpen:{}, noteOpen:{} };
+  for(const person of ['abdullah','hamees']){
+    for(const c of (state[person]||[])){
+      if(c.open) flags.courseOpen[c.id] = true;
+      for(const l of (c.lessons||[])){
+        if(l._noteOpen) flags.noteOpen[l.id] = true;
+      }
+    }
+  }
+  return flags;
+}
+function applyUIFlags(target, flags){
+  for(const person of ['abdullah','hamees']){
+    for(const c of (target[person]||[])){
+      if(flags.courseOpen[c.id]) c.open = true;
+      for(const l of (c.lessons||[])){
+        if(flags.noteOpen[l.id]) l._noteOpen = true;
+      }
+    }
+  }
+}
+
+async function loadState(showLoading){
+  const uiFlags = extractUIFlags();
+  try{
+    const res = await fetch(API_URL);
+    if(!res.ok) throw new Error('fetch failed: ' + res.status);
+    const parsed = await res.json();
+    const remoteRev = parsed.rev || 0;
+    const localRev = state.rev || 0;
+
+    // If our local copy is the same age or newer than what's in storage,
+    // this fetch is stale (it raced ahead of our own pending save) — keep
+    // the local state as-is instead of reverting the person's edit.
+    if(remoteRev < localRev){
+      render();
+      return;
+    }
+
+    let next = parsed;
+    if(openNoteEditing){
+      next = mergePreservingEditing(next, openNoteEditing);
+    }
+    applyUIFlags(next, uiFlags);
+    state = next;
+  }catch(e){
+    if(!state || (state.rev === undefined)) state = defaultState();
+    document.getElementById('syncNote').textContent = 'تعذر الاتصال بالخادم — تحقق من الإنترنت';
+    render();
+    return;
+  }
+  render();
+  document.getElementById('syncNote').textContent = 'يتم التحديث تلقائياً بينكما';
+}
+
+function mergePreservingEditing(incoming, editingId){
+  // find the lesson currently being edited in local state, keep its note text
+  let localNote = null;
+  for(const person of ['abdullah','hamees']){
+    for(const c of (state[person]||[])){
+      for(const l of (c.lessons||[])){
+        if(l.id === editingId){ localNote = l.note; }
+      }
+    }
+  }
+  if(localNote !== null){
+    for(const person of ['abdullah','hamees']){
+      for(const c of (incoming[person]||[])){
+        for(const l of (c.lessons||[])){
+          if(l.id === editingId){ l.note = localNote; }
+        }
+      }
+    }
+  }
+  return incoming;
+}
+
+async function saveState(){
+  try{
+    const res = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(state)
+    });
+    if(res.status === 409){
+      // our write was stale (someone else's newer save landed first) — adopt their version
+      const serverState = await res.json();
+      if((serverState.rev||0) > (state.rev||0)){
+        const uiFlags = extractUIFlags();
+        applyUIFlags(serverState, uiFlags);
+        state = serverState;
+        render();
+      }
+      document.getElementById('syncNote').textContent = 'تم تحديث البيانات من جهاز آخر';
+      return;
+    }
+    if(!res.ok){
+      document.getElementById('syncNote').textContent = 'تعذر الحفظ، حاول مجدداً';
+    } else {
+      document.getElementById('syncNote').textContent = 'يتم التحديث تلقائياً بينكما';
+    }
+  }catch(e){
+    document.getElementById('syncNote').textContent = 'تعذر الحفظ — تحقق من الإنترنت';
+  }
+}
+
+function bumpRev(){
+  state.rev = (state.rev || 0) + 1;
+}
+
+function addCourse(person){
+  const input = document.getElementById(person === 'abdullah' ? 'newCourseAbdullah' : 'newCourseHamees');
+  const name = input.value.trim();
+  if(!name) return;
+  state[person].push({ id: uid(), name, open:false, lessons:[] });
+  input.value = '';
+  bumpRev();
+  saveState();
+  render();
+}
+
+function deleteCourse(person, courseId){
+  state[person] = state[person].filter(c => c.id !== courseId);
+  bumpRev();
+  saveState();
+  render();
+}
+
+function toggleCourseOpen(person, courseId){
+  const c = state[person].find(c => c.id === courseId);
+  if(c) c.open = !c.open;
+  render();
+}
+
+function addLesson(person, courseId){
+  const input = document.getElementById('newlesson-'+courseId);
+  const title = input.value.trim();
+  if(!title) return;
+  const c = state[person].find(c => c.id === courseId);
+  c.lessons.push({ id: uid(), title, done:false, note:'' });
+  input.value = '';
+  bumpRev();
+  saveState();
+  render();
+}
+
+function deleteLesson(person, courseId, lessonId){
+  const c = state[person].find(c => c.id === courseId);
+  c.lessons = c.lessons.filter(l => l.id !== lessonId);
+  bumpRev();
+  saveState();
+  render();
+}
+
+function toggleLessonDone(person, courseId, lessonId, evt){
+  const c = state[person].find(c => c.id === courseId);
+  const l = c.lessons.find(l => l.id === lessonId);
+  l.done = !l.done;
+  if(l.done && evt) burstHearts(evt);
+  bumpRev();
+  saveState();
+  render();
+}
+
+function toggleNoteOpen(person, courseId, lessonId){
+  const c = state[person].find(c => c.id === courseId);
+  c.lessons.forEach(l => { if(l.id !== lessonId) l._noteOpen = false; });
+  const l = c.lessons.find(l => l.id === lessonId);
+  l._noteOpen = !l._noteOpen;
+  render();
+}
+
+function saveNote(person, courseId, lessonId){
+  const ta = document.getElementById('note-'+lessonId);
+  const c = state[person].find(c => c.id === courseId);
+  const l = c.lessons.find(l => l.id === lessonId);
+  l.note = ta.value;
+  openNoteEditing = null;
+  bumpRev();
+  saveState();
+}
+
+function burstHearts(evt){
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const x = evt.clientX || (evt.target.getBoundingClientRect().left + 10);
+  const y = evt.clientY || (evt.target.getBoundingClientRect().top + 10);
+  const hearts = ['♥','💛','♡'];
+  for(let i=0;i<5;i++){
+    const el = document.createElement('div');
+    el.className = 'heart-pop';
+    el.textContent = hearts[Math.floor(Math.random()*hearts.length)];
+    el.style.left = (x + (Math.random()*40-20)) + 'px';
+    el.style.top = (y + (Math.random()*10-5)) + 'px';
+    el.style.color = Math.random() > 0.5 ? 'var(--pink)' : 'var(--gold)';
+    document.body.appendChild(el);
+    setTimeout(()=> el.remove(), 950);
+  }
+}
+
+function pct(course){
+  if(!course.lessons.length) return 0;
+  return Math.round(100 * course.lessons.filter(l=>l.done).length / course.lessons.length);
+}
+
+function personPct(person){
+  const lessons = state[person].flatMap(c=>c.lessons);
+  if(!lessons.length) return 0;
+  return Math.round(100 * lessons.filter(l=>l.done).length / lessons.length);
+}
+
+function toArabicDigits(n){
+  const map = ['٠','١','٢','٣','٤','٥','٦','٧','٨','٩'];
+  return String(n).split('').map(ch => /[0-9]/.test(ch) ? map[ch] : ch).join('');
+}
+
+function renderCourses(person, containerId){
+  const container = document.getElementById(containerId);
+  const courses = state[person];
+  if(!courses.length){
+    container.innerHTML = '<div class="empty">لم تُضف أي دورة بعد — ابدأ بإضافة أول دورة لك</div>';
+    return;
+  }
+  container.innerHTML = courses.map(c => {
+    const p = pct(c);
+    const done = c.lessons.filter(l=>l.done).length;
+    return `
+    <div class="course ${c.open?'open':''}">
+      <div class="course-head" onclick="toggleCourseOpen('${person}','${c.id}')">
+        <div>
+          <div class="course-title">${escapeHtml(c.name)}</div>
+          <div class="course-meta">${toArabicDigits(done)} من ${toArabicDigits(c.lessons.length)} دروس مكتملة</div>
+          <div class="course-progress-wrap"><div class="course-progress-fill" style="width:${p}%"></div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <button class="course-del" onclick="event.stopPropagation(); deleteCourse('${person}','${c.id}')" aria-label="حذف الدورة">✕</button>
+          <span class="chevron">▾</span>
+        </div>
+      </div>
+      <div class="lessons">
+        ${c.lessons.map(l => `
+          <div class="lesson ${l._noteOpen?'note-open':''}">
+            <div class="lesson-row">
+              <button class="lesson-check ${l.done?'done':''}" onclick="toggleLessonDone('${person}','${c.id}','${l.id}', event)" aria-label="إتمام الدرس">${l.done?'✓':''}</button>
+              <span class="lesson-title ${l.done?'done':''}" onclick="toggleNoteOpen('${person}','${c.id}','${l.id}')">${escapeHtml(l.title)}</span>
+              ${l.note ? '<span class="note-indicator">✎</span>' : ''}
+              <button class="lesson-del" onclick="deleteLesson('${person}','${c.id}','${l.id}')" aria-label="حذف الدرس">✕</button>
+            </div>
+            <div class="note-panel">
+              <textarea id="note-${l.id}" placeholder="أضف ملاحظة حول هذا الدرس..." onfocus="openNoteEditing='${l.id}'">${escapeHtml(l.note||'')}</textarea>
+              <div class="note-actions">
+                <button class="btn ghost" onclick="toggleNoteOpen('${person}','${c.id}','${l.id}')">إغلاق</button>
+                <button class="btn primary" onclick="saveNote('${person}','${c.id}','${l.id}')">احفظ الملاحظة</button>
+              </div>
+            </div>
+          </div>
+        `).join('')}
+        <div class="add-lesson">
+          <input type="text" id="newlesson-${c.id}" placeholder="أضف درساً جديداً..." onkeydown="if(event.key==='Enter'){addLesson('${person}','${c.id}')}">
+          <button class="btn primary" onclick="addLesson('${person}','${c.id}')">أضف</button>
+        </div>
+      </div>
+    </div>
+    `;
+  }).join('');
+}
+
+function escapeHtml(str){
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+function render(){
+  renderCourses('abdullah','coursesAbdullah');
+  renderCourses('hamees','coursesHamees');
+
+  const aPct = personPct('abdullah');
+  const hPct = personPct('hamees');
+  document.getElementById('statAbdullah').textContent = state.abdullah.length
+    ? `${toArabicDigits(aPct)}٪ من الدروس مكتملة` : 'لا توجد دورات بعد';
+  document.getElementById('statHamees').textContent = state.hamees.length
+    ? `${toArabicDigits(hPct)}٪ من الدروس مكتملة` : 'لا توجد دورات بعد';
+
+  const allLessons = [...state.abdullah, ...state.hamees].flatMap(c=>c.lessons);
+  const togetherPct = allLessons.length ? Math.round(100*allLessons.filter(l=>l.done).length/allLessons.length) : 0;
+  document.getElementById('togetherFill').style.width = togetherPct + '%';
+  document.getElementById('togetherPct').textContent = toArabicDigits(togetherPct) + '٪';
+}
+
+loadState();
+setInterval(() => loadState(), 4000);
+
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('sw.js').catch(()=>{});
+}
+</script>
+
+</body>
+</html>
